@@ -24,20 +24,51 @@ include_once 'includes/message.php';
                 <?php
                 $sql = "SELECT * FROM clientes";
                 $resultado = mysqli_query($connect, $sql);
-                while ($dados = mysqli_fetch_array($resultado)) :
+
+                if (mysqli_num_rows($resultado) > 0) :
+
+                    while ($dados = mysqli_fetch_array($resultado)) :
                 ?>
+                        <tr>
+                            <td><?php echo $dados['nome']; ?></td>
+                            <td><?php echo $dados['sobrenome']; ?></td>
+                            <td><?php echo $dados['email']; ?></td>
+                            <td><?php echo $dados['idade']; ?></td>
+                            <td>
+                                <a href="editar.php?id=<?php echo $dados['id']; ?>" class="btn-floating orange"><i class="material-icons">edit</i></a>
+                                <a href="#modal<?php echo $dados['id']; ?>" class="btn-floating red modal-trigger"><i class="material-icons">delete</i></a>
+
+                                <!-- Modal Structure -->
+                                <div id="modal<?php echo $dados['id']; ?>" class="modal">
+                                    <div class="modal-content">
+                                        <h5>Você têm certeza ?</h5>
+                                        <p>Quer mesmo excluir este cliente ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="php_action/delete.php" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $dados['id']; ?>">
+                                            <button type="submit" name="btn-deletar" class="btn red">Sim, quero excluir.</button>
+                                            <a href="#!" class="modal-close waves-effect waves-green btn-flat green">Cancelar</a>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    <?php
+                    endwhile;
+                else : ?>
                     <tr>
-                        <td><?php echo $dados['nome']; ?></td>
-                        <td><?php echo $dados['sobrenome']; ?></td>
-                        <td><?php echo $dados['email']; ?></td>
-                        <td><?php echo $dados['idade']; ?></td>
-                        <td>
-                            <a href="editar.php?id=<?php echo $dados['id']; ?>" class="btn-floating orange"><i class="material-icons">edit</i></a>
-                            <a href="" class="btn-floating red"><i class="material-icons">delete</i></a>
-                        </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td> - </td>
                     </tr>
                 <?php
-                endwhile; ?>
+                endif;
+                ?>
+
             </tbody>
         </table>
         <br>
