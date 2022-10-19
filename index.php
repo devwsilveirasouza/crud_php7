@@ -32,8 +32,8 @@ include_once 'includes/message.php';
                         <td><?php echo $dados['email']; ?></td>
                         <td><?php echo $dados['idade']; ?></td>
                         <td>
-                            <button type="button" class="btn-floating orange"><i class="material-icons">edit</i></button>
-                            <button type="button" class="btn-floating red"><i class="material-icons">delete</i></button>
+                            <a href="editar.php?id=<?php echo $dados['id']; ?>" class="btn-floating orange"><i class="material-icons">edit</i></a>
+                            <a href="" class="btn-floating red"><i class="material-icons">delete</i></a>
                         </td>
                     </tr>
                 <?php
